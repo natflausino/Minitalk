@@ -14,11 +14,15 @@ int	mess_received;
 */
 
 void	put_id(pid_t id);
+void	sighandler(int signum);
+int	verify_signal(void);
 
 /*
 * CLIENT FUNCTIONS
 */
 
 pid_t	get_numid(char *arg);
+int	send_message(char *arg, pid_t num_id);
+void check_message(int signum);
 
 #endif

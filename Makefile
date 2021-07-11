@@ -29,7 +29,7 @@ clean:
 	@rm -f $(OBJ)
 
 fclean:
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(OBJ) $(NAME2) $(OBJ_CLIENT)
 
 re: fclean all
 

@@ -1,5 +1,40 @@
 #include "minitalk.h"
 
+//o client vai enviar --> string num conjunto de bits
+
+int	send_message(char *arg, pid_t num_id)
+{
+	int	i;
+	int	in_bits;
+	int	bit;
+
+	i = 0;
+	while (1)
+	{
+		bit = 7;
+		while (bit >= 0)
+		{
+			in_bits = (arg[i] & (1 << bit));
+			if(kill(num_id, (int[]){SIGUSR1, SIGUSR2}[in_bits > 0]) < 0)
+				return (1);
+			if(usleep(100) == -1)
+				return (1);
+			bit--;
+		}
+		if (arg[i] == '\0')
+			break ;
+		i++;
+	}
+	return(0);
+}
+
+void check_message(int signum)
+{
+	printf("%s", "olha so");
+	(void)signum;
+	mess_received = 1;
+}
+
 pid_t	get_numid(char *arg)
 {
 	int num;
@@ -7,7 +42,7 @@ pid_t	get_numid(char *arg)
 	num = 0;
 	while (*arg)
 	{
-		if ('0' <= *arg && *arg <= '9')
+		if (*arg >= '0' && *arg <= '9')
 		{
 			num = (num * 10) + *arg - '0';
 		}
@@ -15,7 +50,6 @@ pid_t	get_numid(char *arg)
 			return (-1);
 		arg++;
 	}
-	printf ("%i", num);
 	return (num);
 }
 
@@ -36,9 +70,13 @@ int	main(int argc, char **argv)
 	}
 	mess_received = 0;
 
-	if (!mess_received)
-		sleep(10);
-	if(mess_received)
+	if (signal(SIGUSR1, check_message) == SIG_ERR
+		|| send_message(argv[2], num_id) != 0)
+		return (1);
+
+	if (mess_received == 0)
+		sleep(6);
+	if(mess_received == 1)
 		return (0);
 	write (1, "Error!\n", 7);
 	return (1);
