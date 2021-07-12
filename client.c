@@ -30,9 +30,8 @@ int	send_message(char *arg, pid_t num_id)
 
 void check_message(int signum)
 {
-	printf("%s", "olha so");
 	(void)signum;
-	mess_received = 1;
+	g_mess_received = 1;
 }
 
 pid_t	get_numid(char *arg)
@@ -66,17 +65,16 @@ int	main(int argc, char **argv)
 	if(num_id <= 1)
 	{
 		write (1, "Error?\n", 7);
-		return (1);
+		return (2);
 	}
-	mess_received = 0;
-
+	g_mess_received = 0;
 	if (signal(SIGUSR1, check_message) == SIG_ERR
 		|| send_message(argv[2], num_id) != 0)
 		return (1);
 
-	if (mess_received == 0)
+	if (g_mess_received == 0)
 		sleep(6);
-	if(mess_received == 1)
+	if(g_mess_received == 1)
 		return (0);
 	write (1, "Error!\n", 7);
 	return (1);

@@ -8,14 +8,15 @@
 # include <stdio.h>
 
 
-int	mess_received;
+int	g_mess_received;
 /*
 * SERVER FUNCTIONS
 */
 
 void	put_id(pid_t id);
-void	sighandler(int signum);
-int	verify_signal(void);
+int	setup_handlers(void);
+void	sig_action(int signum, siginfo_t *info, void *ucontext);
+void	receive_message(int num_bit, pid_t id_client);
 
 /*
 * CLIENT FUNCTIONS
