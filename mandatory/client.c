@@ -1,4 +1,4 @@
-#include "minitalk.h"
+#include "../includes/minitalk.h"
 
 //o client vai enviar --> string num conjunto de bits
 

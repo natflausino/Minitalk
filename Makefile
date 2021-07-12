@@ -3,15 +3,18 @@ NAME2 = client
 
 CC = clang
 FLAGS = -Wall -Wextra -Werror
-INCLUDES = minitalk.h
+INCLUDES = ./includes/minitalk.h
 
-SRC = server.c
-SRC_CLIENT = client.c
+SRC_PATH = ./mandatory/
+SRC_BONUS = ./bonus/
+
+SRC = $(SRC_PATH)server.c
+SRC_CLIENT = $(SRC_PATH)client.c
 
 OBJ = $(SRC:.c=.o)
 OBJ_CLIENT = $(SRC_CLIENT:.c=.o)
 
-all: $(NAME) $(NAME2) $(INCLUDE)
+all: $(NAME) $(NAME2) $(INCLUDES)
 
 $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJ)

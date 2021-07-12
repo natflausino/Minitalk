@@ -1,4 +1,4 @@
-#include "minitalk.h"
+#include "../includes/minitalk.h"
 
 //o server vai receber --> ele vai tranformar um conjunto de bits numa string
 
@@ -16,7 +16,7 @@ void	receive_message(int num_bit, pid_t id_client)
 		if(str == '\0' || len >= 1000)
 		{
 			write(1, buffer, (len - (str == '\0')));
-			write (1, "\n", 1);write (1, "\n", 1);
+			write (1, "\n", 1);
 			len = 0;
 			if (str == '\0')
 				kill(id_client, SIGUSR1);
