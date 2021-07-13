@@ -63,13 +63,14 @@ int	main(int argc, char **argv)
 
 	if (argc != 1)
 	{
-		write (1, "Error\n", 6);
+		write (1, "Error: Wrong argument...\n", 25);
+		write (1, "Please try writting: ./server\n", 30);
 		return (-1);
 	}
 	if (setup_handlers() == -1)
 		return (1);
 	id = getpid();
-	write (1, "Use this to send a message:", 27);
+	write (1, "Use this ID number to send a message:", 37);
 	put_id(id);
 	write (1, "\n", 1);
 	while (1)

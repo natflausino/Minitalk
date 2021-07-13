@@ -58,13 +58,14 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		write (1, "Error\n", 6);
+		write (1, "Error: Wrong number of arguments...\n", 36);
+		write (1, "Please try writting: ./client + server ID number + message\n", 59);
 		return (1);
 	}
 	num_id = get_numid(argv[1]);
 	if(num_id <= 1)
 	{
-		write (1, "Error?\n", 7);
+		write (1, "Error: Wrong server ID number...\n", 33);
 		return (2);
 	}
 	g_mess_received = 0;
@@ -76,6 +77,6 @@ int	main(int argc, char **argv)
 		sleep(6);
 	if(g_mess_received == 1)
 		return (0);
-	write (1, "Error!\n", 7);
+	write (1, "Error: No connection to server!\n", 32);
 	return (1);
 }
