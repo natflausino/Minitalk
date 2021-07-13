@@ -32,6 +32,7 @@ void check_message(int signum)
 {
 	(void)signum;
 	g_mess_received = 1;
+	write (1, "Enviado\n", 8);
 }
 
 pid_t	get_numid(char *arg)
